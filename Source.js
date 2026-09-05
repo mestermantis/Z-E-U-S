@@ -2141,7 +2141,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 								const tB = typeof activeIps[b] === "object" ? activeIps[b].timestamp : activeIps[b];
 								return tB - tA;
 							});
-							if (user.ip_limit && user.ip_limit > 0 && sortedIps.indexOf(clientIP) >= user.ip_limit) isIpLimitExpired = true;
+							/* Bypassed: if (user.ip_limit && user.ip_limit > 0 && sortedIps.indexOf(clientIP) >= user.ip_limit) isIpLimitExpired = true; */
 							if (hasChanges || needsDbUpdateForTimestamp || isIpLimitExpired) updatedActiveIps = JSON.stringify(activeIps);
 						}
 					}
@@ -2152,9 +2152,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 						return;
 					}
 					if (isIpLimitExpired) {
-						clearTimeout(heartbeat);
-						closeSocketQuietly(serverSock);
-						return;
+						/* Bypassed: clearTimeout(heartbeat); closeSocketQuietly(serverSock); return; */
 					}
 					if (updatedActiveIps !== null) {
 						GLOBAL_LAST_DB_WRITE.set(username, nowTime);
@@ -2465,10 +2463,7 @@ async function handlevIees(env, storedData = null, ctx = null, request = null) {
 				let isNewIp = false;
 				if (!activeIps[clientIP]) {
 					const sortedIps = Object.keys(activeIps);
-					if (user.ip_limit && user.ip_limit > 0 && sortedIps.length >= user.ip_limit) {
-						serverSock.close();
-						return;
-					}
+					/* Bypassed: if (user.ip_limit && user.ip_limit > 0 && sortedIps.length >= user.ip_limit) { serverSock.close(); return; } */
 					activeIps[clientIP] = { timestamp: now, count: 1 };
 					isNewIp = true;
 				} else {
@@ -5390,7 +5385,7 @@ const HTML_TEMPLATES = {
 								<div class="flex items-center justify-between p-3.5 bg-purple-50/60 dark:bg-amoled-input/30 cursor-pointer" onclick="document.getElementById('input-advanced-settings-toggle').click()">
 									<div class="flex items-center gap-2">
 										<svg class="w-4 h-4 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-										<span class="text-xs font-black text-purple-900 dark:text-purple-300">تنظیمات پیشرفته TLS Mask</span>
+										<span class="text-xs font-black text-purple-900 dark:text-purple-300">تنظیمات پیشرفته بهینه سازی</span>
 										<span onclick="event.stopPropagation(); togglePattNgModal(true)" class="mr-2 px-1.5 py-0.5 bg-[#33FB1F]/10 text-[#33FB1F] border border-[#33FB1F]/30 rounded text-[10px] hover:bg-[#33FB1F]/20 transition-colors shadow-[0_0_8px_rgba(51,251,31,0.3)] animate-pulse cursor-pointer">مهم🚨</span>
 									</div>
 									<div class="flex items-center gap-2" onclick="event.stopPropagation()">
@@ -5416,7 +5411,7 @@ const HTML_TEMPLATES = {
 									</div>
 									<button type="button" onclick="fillPatternihaValues()" class="w-full py-2 bg-transparent border-2 border-purple-500 text-purple-600 dark:text-purple-500 hover:bg-purple-50 dark:hover:bg-purple-900/20 rounded-lg text-xs font-bold transition flex items-center justify-center gap-1.5 mt-1 shadow-sm">
 										<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-										<span>پر کردن خودکار مقادیر ضد فیلترینگ Patterniha</span>
+										<span>پر کردن خودکار مقادیر بهینه ساز Patterniha</span>
 									</button>
 								</div>
 							</div>
@@ -5462,21 +5457,25 @@ const HTML_TEMPLATES = {
 										<div class="w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-emerald-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
 									</label>
 								</div>
-								<div class="p-3 border border-blue-200 dark:border-blue-900/60 bg-blue-50/70 dark:bg-blue-950/30 text-blue-800 dark:text-blue-300 rounded-lg text-xs leading-relaxed flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
-									<div class="flex items-start gap-2">
-										<span class="text-lg">🌐</span>
-										<div>
-											<p class="font-bold">اتصال مستقیم بدون پروکسی خروجی</p>
-											<p class="text-[11px] opacity-85 mt-0.5">کانفیگ‌های 🌐 آی‌پی ثابت ندارند اما به دلیل اتصال مستقیم دارای پینگ و سرعت بهتری هستند.</p>
-											<p class="text-[10px] text-red-600 dark:text-red-400 font-bold mt-1.5">⚠️ : در زمان اتصال به کانفیگ‌های 🌐 وارد پنل نشوید، قابلیت‌های پنل از کار می‌افتد.</p>
+								<div class="border border-blue-200 dark:border-blue-900/60 bg-blue-50/40 dark:bg-blue-950/20 rounded-xl overflow-hidden shadow-sm">
+									<div class="flex items-center justify-between p-3 bg-blue-100/50 dark:bg-blue-900/40 border-b border-blue-200 dark:border-blue-800/50">
+										<div class="flex items-center gap-2">
+											<span class="text-lg drop-shadow-sm">🌐</span>
+											<span class="text-[11px] font-black text-blue-900 dark:text-blue-300">اتصال مستقیم (بدون پروکسی خروجی)</span>
 										</div>
-									</div>
-									<div class="flex items-center gap-2 flex-shrink-0 bg-white/50 dark:bg-black/20 px-2.5 py-1.5 rounded-lg border border-blue-300/50 dark:border-blue-800/50">
-										<span class="text-[10px] font-bold">نمایش کانفیگ های 🌐:</span>
 										<label class="relative inline-flex items-center cursor-pointer select-none">
 											<input type="checkbox" id="input-enable-direct" checked class="sr-only peer">
-											<div class="w-8 h-4 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-3 after:w-3 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
+											<div class="w-9 h-5 bg-gray-300 peer-focus:outline-none rounded-full peer dark:bg-zinc-700 peer-checked:bg-blue-600 transition-colors after:content-[''] after:absolute after:top-[2px] after:right-[2px] after:bg-white after:rounded-full after:h-4 after:w-4 after:transition-transform peer-checked:after:-translate-x-[16px]"></div>
 										</label>
+									</div>
+									<div class="p-3 space-y-2.5">
+										<p class="text-[10px] font-medium text-blue-800 dark:text-blue-200/80 leading-relaxed text-justify">
+											کانفیگ‌های 🌐 به دلیل نداشتن آی‌پی ثابت، معمولاً دارای <span class="font-bold text-blue-600 dark:text-blue-400">پینگ بهتر و سرعت بالاتری</span> هستند.
+										</p>
+										<div class="flex items-start gap-1.5 p-2 bg-red-50/80 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 rounded-lg shadow-sm">
+											<svg class="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+											<span class="text-[9px] font-bold text-red-700 dark:text-red-400 leading-relaxed text-justify">هشدار: هنگام اتصال به کانفیگ‌های 🌐، از باز کردن پنل خودداری کنید (باعث قطعی و اختلال در عملکرد پنل می‌شود).</span>
+										</div>
 									</div>
 								</div>
 								<div class="transition-opacity duration-300 opacity-50 pointer-events-none space-y-3 pt-2" id="user-socks5-container">
@@ -5966,6 +5965,24 @@ ${COMMON_TOAST_HTML}
 		</div>
 	</div>
 </div>
+<div id="loop-warning-modal" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/75 opacity-0 pointer-events-none transition-all duration-300 ease-out">
+	<div id="loop-warning-card" class="w-full max-w-sm bg-white dark:bg-amoled-card border-2 border-red-600/80 dark:border-red-500/80 rounded-xl shadow-[0_0_30px_rgba(220,38,38,0.3)] overflow-hidden p-6 text-center transform transition-all scale-95 duration-300 flex flex-col items-center">
+		<div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-red-100 dark:bg-red-900/40 text-red-600 dark:text-red-500 mb-4 shadow-inner animate-violent-shake">
+			<svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+		</div>
+		<h3 class="font-black text-xl text-red-600 dark:text-red-500 mb-3">اخطار اتصال مستقیم!</h3>
+		<p class="text-[13px] text-gray-700 dark:text-gray-300 mb-6 leading-relaxed font-bold">
+			شما با کانفیگ مستقیم (🌐) وارد پنل شده‌اید! در این حالت قابلیت‌های پنل کار نمی‌کنند.<br><br>
+			لطفاً فیلترشکن خود را <span class="text-red-600 dark:text-red-400">خاموش کنید</span> یا از کانفیگ‌های دارای پرچم (غیر از 🌐) استفاده نمایید.
+		</p>
+		<button onclick="window.location.reload();" class="w-full py-3.5 bg-red-600 hover:bg-red-700 text-white font-black rounded-lg text-sm transition duration-300 shadow-lg hover:shadow-red-500/50 flex items-center justify-center gap-2">
+			<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+				<path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+			</svg>
+			رفرش صفحه
+		</button>
+	</div>
+</div>
 <div id="rocket-modal" class="fixed inset-0 z-[120] flex items-center justify-center p-4 bg-black/60 opacity-0 pointer-events-none transition-all duration-300 ease-out">
 	<div class="w-full max-w-sm bg-white dark:bg-amoled-card border border-orange-500/50 rounded-2xl shadow-2xl p-6 transform transition-all scale-95 opacity-0 duration-200">
 		<div class="flex justify-between items-center mb-4">
@@ -6209,12 +6226,17 @@ ${COMMON_TOAST_HTML}
 			}
 		}
 		const tlsPorts = ['443', '2053', '2083', '2087', '2096', '8443'];
-		const nonTlsPorts = ['80', '8080', '8880', '2052', '2086', '2095'];
+		const nonTlsPorts = ['80', '8080', '8880', '2052', '2082', '2086', '2095'];
 		let isEditMode = false;
 		let editingUsername = '';
 		function renderPortCheckboxes() {
 			const tlsContainer = document.getElementById('tls-ports-list');
 			const nonTlsContainer = document.getElementById('nontls-ports-list');
+			
+			if (nonTlsContainer) {
+				nonTlsContainer.className = "grid grid-cols-12 gap-1.5 flex-1 content-start";
+			}
+			
 			tlsContainer.innerHTML = tlsPorts.map(function(port) {
 				const isCheckedDefault = port === '443' ? 'checked' : '';
 				return '<label class="relative cursor-pointer">' +
@@ -6225,9 +6247,11 @@ ${COMMON_TOAST_HTML}
 					'</div>' +
 				'</label>';
 			}).join('');
-			nonTlsContainer.innerHTML = nonTlsPorts.map(function(port) {
+			
+			nonTlsContainer.innerHTML = nonTlsPorts.map(function(port, index) {
 				const isCheckedDefault = port === '80' ? 'checked' : '';
-				return '<label class="relative cursor-pointer">' +
+				const colSpanClass = index < 3 ? 'col-span-4' : 'col-span-3';
+				return '<label class="relative cursor-pointer ' + colSpanClass + '">' +
 					'<input type="checkbox" name="ports" value="' + port + '" ' + isCheckedDefault + ' class="peer sr-only">' +
 					'<div class="flex items-center justify-center gap-1 px-1.5 py-1 border border-gray-200 dark:border-amoled-border rounded-md text-[11px] font-semibold select-none transition-all duration-200 hover:bg-gray-50 dark:hover:bg-amoled-input/50 text-gray-700 dark:text-zinc-200 peer-checked:bg-amber-50 dark:peer-checked:bg-amber-950/25 peer-checked:border-amber-500 dark:peer-checked:border-amber-500 peer-checked:text-amber-600 dark:peer-checked:text-amber-400 shadow-sm">' +
 						'<span>' + port + '</span>' +
@@ -6824,7 +6848,7 @@ async function executeRocketCreate() {
 			const vlessCb2 = document.getElementById('input-proto-vless');
 			const trojanCb2 = document.getElementById('input-proto-trojan');
 			if (vlessCb2) vlessCb2.checked = true;
-			if (trojanCb2) trojanCb2.checked = true;
+			if (trojanCb2) trojanCb2.checked = false;
 			const cb443 = document.querySelector('input[name="ports"][value="443"]');
 			if (cb443) cb443.checked = true;
 			const cb80 = document.querySelector('input[name="ports"][value="80"]');
@@ -6854,7 +6878,7 @@ async function executeRocketCreate() {
 			window.activeProxyIndex = 0;
 			if (typeof window.renderProxyFieldsUI === 'function') window.renderProxyFieldsUI();
 			const autoRotateIpToggle = document.getElementById('input-auto-rotate-ip-toggle');
-			if (autoRotateIpToggle) autoRotateIpToggle.checked = true;
+			if (autoRotateIpToggle) autoRotateIpToggle.checked = false;
 			document.getElementById('hidden-rotate-time').value = '';
 			document.getElementById('hidden-ip-operator').value = 'all';
 			document.getElementById('hidden-ip-count').value = '15';
@@ -7435,7 +7459,7 @@ async function executeRocketCreate() {
 								'</td>' +
 								'<td class="bg-white/60 dark:bg-zinc-900/40  group-hover:bg-white/80 dark:group-hover:bg-zinc-900/60 p-1.5 border-y border-gray-200 dark:border-zinc-800">' +
 									'<div class="flex flex-col gap-1 w-[115px] mx-auto">' +
-										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="copyStatusLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-full text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
+										'<button data-user="' + encodeURIComponent(user.username) + '" onclick="openStatusLink(this.dataset.user)" class="w-full h-[24px] p-0 flex items-center justify-center gap-1 bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-500 hover:bg-green-100 dark:hover:bg-green-900/50 rounded-full text-[9px] font-bold transition border border-green-200 dark:border-green-800 whitespace-nowrap">' +
 											'<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' +
 											'وضعیت اتصال' +
 										'</button>' +
@@ -7814,7 +7838,7 @@ async function executeRocketCreate() {
 				});
 				if (response.ok) {
 					toggleModal(false);
-					await loadUsers(true);
+					setTimeout(() => loadUsers(true), 1500);
 				} else {
 					const errData = await response.json();
 					alert('خطا: ' + (errData.error || 'عملیات ناموفق بود'));
@@ -8137,12 +8161,12 @@ function downloadZeusSource() {
 	async function checkGlobalMessage() {
 		try {
 			const res = await fetchWithFallbackUI('message.txt?t=' + Date.now());
-			if (!res || !res.ok) return;
+			if (!res || !res.ok) { checkLoopWarning(); return; }
 			const text = await res.text();
 			const lines = text.split('\\n');
-			if (lines.length < 2) return;
+			if (lines.length < 2) { checkLoopWarning(); return; }
 			const firstLine = lines[0].trim();
-			if (!firstLine.startsWith('VERSION=')) return;
+			if (!firstLine.startsWith('VERSION=')) { checkLoopWarning(); return; }
 			const version = firstLine.split('=')[1].trim();
 			const content = lines.slice(1).join('\\n').trim();
 			if (window.zeus_global_msg_version !== version) {
@@ -8167,6 +8191,7 @@ function downloadZeusSource() {
 					stopHold();
 					setModalState('global-message-modal', false);
 					window.zeus_global_msg_version = version;
+					setTimeout(() => checkLoopWarning(), 500); 
 				};
 				
 				const stopHold = () => {
@@ -8216,6 +8241,8 @@ function downloadZeusSource() {
 				btn.addEventListener('touchend', stopHold);
 				btn.addEventListener('touchcancel', stopHold);
 				btn.addEventListener('click', handleSecretClick);
+			} else {
+				checkLoopWarning(); 
 			}
 		} catch (err) {}
 	}
@@ -8410,13 +8437,10 @@ links.push('vle' + 'ss://' + (user.uuid || '') + '@0.0.0.0:1?encryption=none&sec
 			const link = getSingboxLink(username);
 			toggleQrModal(true, link);
 		}
-		function copyStatusLink(encodedUsername) {
+		function openStatusLink(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
-			navigator.clipboard.writeText(getStatusLink(username)).then(() => {
-				alert('✅ لینک صفحه وضعیت با موفقیت کپی شد!');
-			}).catch(() => {
-				alert('خطا در کپی کردن لینک صفحه وضعیت!');
-			});
+			const link = getStatusLink(username);
+			window.open(link, '_blank');
 		}
 		function copyConfig(encodedUsername) {
 			const username = decodeURIComponent(encodedUsername);
@@ -8997,7 +9021,7 @@ async function testUserSocksProxy() {
 				window.location.reload();
 			}
 		}
-const CURRENT_VERSION = '2.1.0';
+const CURRENT_VERSION = '2.1.1';
 const UPDATE_FIX = "constsCURRENT_VERSION='d.d.d'";
 		window.autoUpdateStatusCache = false;
 		async function checkAutoUpdateSetup() {
@@ -9339,6 +9363,49 @@ function applySelectedIps() {
 				setTimeout(runGlobalProxyScanner, waitTime);
 			}
 		}
+
+		window.hasShownLoopWarning = false;
+		async function checkLoopWarning() {
+			if (window.hasShownLoopWarning) return;
+			await new Promise(r => setTimeout(r, 1500)); 
+			
+			const testProxies = [
+				"socks5://8.8.8.8:1080", 
+				"socks5://1.1.1.1:1080"
+			];
+			const randomProxy = testProxies[Math.floor(Math.random() * testProxies.length)];
+			
+			try {
+				const controller = new AbortController();
+				const timeoutId = setTimeout(() => controller.abort(), 4000);
+				const res = await fetch('/api/test-proxy', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ proxy: randomProxy, skip_country: true }),
+					signal: controller.signal
+				});
+				clearTimeout(timeoutId);
+				const data = await res.json();
+				if (!res.ok || (data && data.error && data.error.includes("Loop"))) {
+					window.hasShownLoopWarning = true;
+					
+					const showLoopModal = () => {
+						const modal = document.getElementById('loop-warning-modal');
+						const card = document.getElementById('loop-warning-card');
+						if(modal && card) {
+							modal.classList.replace('opacity-0', 'opacity-100');
+							modal.classList.replace('pointer-events-none', 'pointer-events-auto');
+							card.classList.replace('scale-95', 'scale-100');
+						}
+					};
+					
+					showLoopModal();
+					setInterval(showLoopModal, 10000);
+				}
+			} catch (e) {
+			}
+		}
+
 		document.addEventListener('DOMContentLoaded', () => {
 			if (window.location.search.includes('t=')) {
 				window.history.replaceState(null, '', window.location.pathname);
