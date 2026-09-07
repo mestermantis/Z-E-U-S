@@ -6,7 +6,7 @@
 <div align="center">
  
 # ⚡ پنل زئوس (ZEUS PANEL)
-[![Version](https://img.shields.io/badge/Version-v2.0.6-blue.svg?style=for-the-badge&logo=cloudflare)](https://github.com/zeus-panel/ZEUS-PANEL)
+[![Version](https://img.shields.io/badge/Version-v2.1.1-blue.svg?style=for-the-badge&logo=cloudflare)](https://github.com/zeus-panel/ZEUS-PANEL)
 [![Platform](https://img.shields.io/badge/Platform-Cloudflare%20Workers-f38020.svg?style=for-the-badge&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
 [![License](https://img.shields.io/badge/License-Proprietary%20(Non--Commercial)-red.svg?style=for-the-badge)](https://github.com/zeus-panel/ZEUS-PANEL/blob/main/LICENSE)
 [![Telegram](https://img.shields.io/badge/Community-PANEL__ZEUS-2CA5E0.svg?style=for-the-badge&logo=telegram)](https://t.me/PANEL_ZEUS)
@@ -68,6 +68,7 @@
 * 🇮🇷 پریست‌های مخصوص اپراتورها: پریست‌های بهینه‌شده یک‌کلیکه برای اپراتورهای خاص (همراه‌اول، ایرانسل، رایتل، مخابرات و حالت گیمینگ).
 * 🎭 یکپارچگی با Patterniha (PattN/PattNG): پشتیبانی بومی از Fragment پیشرفته JSON (fm)، Cipher Suiteهای سفارشی (cs) و Masking TLS (SNI/Host سفارشی) برای حداکثر پنهان‌کاری.
 * 🕵️ شبیه‌ساز اثرانگشت ClientHello: شبیه‌سازی پویای اثرانگشت مرورگرها (کروم، سافاری، iOS، اندروید، Edge، تصادفی و Unsafe) برای دور زدن سانسور.
+* 🧠 عبور از تحریم‌های هوش مصنوعی: مکانیزم‌های مسیریابی یکپارچه جهت دسترسی بدون محدودیت به پلتفرم‌های تحریم‌شده هوش مصنوعی (مانند جمینای) و عبور از مسدودسازی‌های منطقه‌ای.
 
 **👥 مدیریت پیشرفته کاربران و سیستم سهمیه**
 * ⚖️ اعمال سخت‌گیرانه سهمیه: تعیین محدودیت دقیق بر اساس حجم ترافیک (گیگابایت)، انقضای زمانی (روز)، تعداد کل درخواست‌ها و تعداد دستگاه‌های همزمان (محدودیت IP).
