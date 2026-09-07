@@ -6,7 +6,7 @@
 <div align="center">
  
 # ⚡ ZEUS PANEL
-[![Version](https://img.shields.io/badge/Version-v2.0.6-blue.svg?style=for-the-badge&logo=cloudflare)](https://github.com/zeus-panel/ZEUS-PANEL)
+[![Version](https://img.shields.io/badge/Version-v2.1.1-blue.svg?style=for-the-badge&logo=cloudflare)](https://github.com/zeus-panel/ZEUS-PANEL)
 [![Platform](https://img.shields.io/badge/Platform-Cloudflare%20Workers-f38020.svg?style=for-the-badge&logo=cloudflare&logoColor=white)](https://workers.cloudflare.com/)
 [![License](https://img.shields.io/badge/License-Proprietary%20(Non--Commercial)-red.svg?style=for-the-badge)](https://github.com/zeus-panel/ZEUS-PANEL/blob/main/LICENSE)
 [![Telegram](https://img.shields.io/badge/Community-PANEL__ZEUS-2CA5E0.svg?style=for-the-badge&logo=telegram)](https://t.me/PANEL_ZEUS)
@@ -68,6 +68,7 @@
 * 🇮🇷 ISP-Specific Presets: One-click optimized fragmentation presets for specific network operators (MCI, Irancell, Rightel, TCI, and Gaming mode).
 * 🎭 Patterniha (PattN/PattNG) Integration: Native support for advanced JSON fragmentation (fm), Custom Cipher Suites (cs), and TLS Masking (Custom SNI/Host) for ultimate stealth.
 * 🕵️ ClientHello Fingerprint Simulator: Dynamically spoof browser fingerprints (Chrome, Safari, iOS, Android, Edge, Randomized, Unsafe) to evade censorship.
+* 🧠 AI Sanction Bypass: Integrated routing mechanisms to seamlessly unlock and access restricted artificial intelligence platforms, such as Gemini, bypassing regional geo-blocks.
 
 **👥 Advanced User Management & Billing**
 * ⚖️ Strict Quota Enforcement: Set precise limits based on Traffic Volume (GB), Time Expiration (Days), Total Requests, and Concurrent Devices (IP Limit).
